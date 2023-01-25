@@ -40,7 +40,7 @@ def two_of_three(x, y, z):
     >>> two_of_three(5, 5, 5)
     50
     """
-    return x*x + y*y + z*z - max(x, y, z)*max(x, y, z)
+    return x*x + y*y + z*z - pow(max(x, y, z), 2)
 
 
 def two_of_three_syntax_check():
@@ -65,18 +65,17 @@ def largest_factor(n):
     1
     """
     "*** YOUR CODE HERE ***"
-    a = n - 1
-    while (a < n):
-        if n % a == 0:
-            return a
-        a = a - 1
+    factor, k = 1, 1
+    while k < n:
+        if n % k == 0:
+            factor = k
+        k += 1
+    return factor
 
-
-
-def limited(x, y, limit):
+def limited(x, z, limit):
     """Logic that is common to invert and change."""
     if x != 0:
-        return min(y/x, limit)
+        return min(z / x, limit)
     else:
         return limit
 
@@ -146,13 +145,19 @@ def hailstone(n):
     7
     """
     "*** YOUR CODE HERE ***"
+    total = 1
+    while n != 1:
+        total += 1
+        print(int(n))
+        if n % 2 == 0:
+            n = n / 2
+        else:
+            n = n * 3 + 1
     print(int(n))
-    if n == 1:
-        return 1
-    elif n % 2 == 0:
-        return 1 + hailstone(n/2)
-    else:
-        return 1 + hailstone(n*3 + 1)
+    return total
+    # n is even number.
+    
+
 
 
 "*** YOUR CODE HERE ***"
