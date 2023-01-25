@@ -32,6 +32,10 @@ def product(n, term):
     162
     """
     "*** YOUR CODE HERE ***"
+    total, k = 1, 1
+    while k <= n:
+        total, k = total * term(k), k + 1
+    return total 
 
 
 def square(x):
@@ -63,6 +67,10 @@ def accumulate(merger, base, n, term):
     16
     """
     "*** YOUR CODE HERE ***"
+    total, k = base, 1
+    while k <= n:
+        total, k = merger(total, term(k)), k + 1
+    return total
 
 
 def summation_using_accumulate(n, term):
@@ -74,6 +82,7 @@ def summation_using_accumulate(n, term):
     45
     """
     "*** YOUR CODE HERE ***"
+    return accumulate(add, 0, n, term)
 
 
 def product_using_accumulate(n, term):
@@ -85,6 +94,7 @@ def product_using_accumulate(n, term):
     524880
     """
     "*** YOUR CODE HERE ***"
+    return accumulate(mul, 1, n, term)
 
 
 def accumulate_syntax_check():
