@@ -26,7 +26,13 @@ def unique_digits(n):
     2
     """
     "*** YOUR CODE HERE ***"
-
+    i = 0
+    count = 0
+    while i < 10:
+        if has_digit(n, i):
+            count += 1
+        i += 1
+    return count
 
 def has_digit(n, k):
     """Returns whether K is a digit in N.
@@ -36,7 +42,11 @@ def has_digit(n, k):
     False
     """
     "*** YOUR CODE HERE ***"
-
+    while n > 0:
+        if n % 10 == k:
+            return True
+        n = n // 10
+    return False
 
 def ordered_digits(x):
     """Return True if the (base 10) digits of X>0 are in non-decreasing
@@ -58,6 +68,11 @@ def ordered_digits(x):
 
     """
     "*** YOUR CODE HERE ***"
+    while x > 0:
+        if x % 10 < (x // 10) % 10:
+            return False
+        x = x // 10
+    return True        
 
 
 def get_k_run_starter(n, k):
@@ -106,6 +121,13 @@ def make_repeater(func, n):
     5
     """
     "*** YOUR CODE HERE ***"
+    def repeat(x):
+        i = 0
+        while i < n:
+            x = func(x)
+            i += 1
+        return x
+    return repeat
 
 
 def composer(func1, func2):
@@ -124,6 +146,11 @@ def apply_twice(func):
     16
     """
     "*** YOUR CODE HERE ***"
+    def twice(x):
+        for i in range(2):
+            x = func(x)
+        return x
+    return twice
 
 
 def protected_secret(password, secret, num_attempts):
