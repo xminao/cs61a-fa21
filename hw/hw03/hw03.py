@@ -23,14 +23,13 @@ def num_eights(pos):
     True
     """
     "*** YOUR CODE HERE ***"
-    if pos == 8:
-        return 1
-    elif pos < 10:
+    if pos == 0:
         return 0
     if pos % 10 == 8:
         return 1 + num_eights(pos // 10)
     else:
         return num_eights(pos // 10)
+
 
 def pingpong(n):
     """Return the nth element of the ping-pong sequence.
@@ -66,24 +65,17 @@ def pingpong(n):
     True
     """
     "*** YOUR CODE HERE ***"
-
-    def get_direction(i):
-        def change_direction():
-            if num_eights(i - 1) > 0 or (i - 1) % 8 == 0:
-                return -1   # negative direction
-            else:
-                return 1    #positive direction
-
-        if i == 1:  #positive direction
+    def get_flag(x):
+        if x == 1:
             return 1
-        
-        return get_direction(i - 1) * change_direction()    # current direction times previous direction
+        if num_eights(x) or x % 8 == 0:
+            return -get_flag(x - 1)
+        else:
+            return get_flag(x - 1)
 
     if n == 1:
         return 1
-
-    return get_direction(n) + pingpong(n-1)
-
+    return pingpong(n - 1) + get_flag(n - 1)
 
 
 def missing_digits(n):
@@ -114,15 +106,15 @@ def missing_digits(n):
     True
     """
     "*** YOUR CODE HERE ***"
-    def calculate_digits(x, y):
-        if x + 1 >= y:
+    def missing():
+        if (n % 10) == (n // 10 % 10):
             return 0
-        return 1 + calculate_digits(x + 1, y)
-
-    if n // 10 == 0:
+        return (n % 10) - (n // 10 % 10) - 1
+    
+    if n < 10:
         return 0
-    else:
-        return calculate_digits(n // 10 % 10, n % 10) + missing_digits(n // 10)
+    return missing() + missing_digits(n // 10)
+
 
 def ascending_coin(coin):
     """Returns the next ascending coin in order.
@@ -178,19 +170,19 @@ def count_coins(change):
     True
     """
     "*** YOUR CODE HERE ***"
-    def count(change, current):
-        if change == 0:
+    def count(n, m):
+        if n == 0:
             return 1
-        elif change < 0:
-            return 0
-        elif current == None:
+        elif m == 1:
+            return 1
+        elif n < 0 or m == None:
             return 0
         else:
-            with_m = count(change - current, current)
-            with_n = count(change, ascending_coin(current))
-            return with_m + with_n
-
-    return count(change, 1)
+            with_m = count(n - m, m)
+            without_m = count(n, descending_coin(m))
+            return with_m + without_m
+            
+    return count(change, 25)
 
 def print_move(origin, destination):
     """Print instructions to move a disk."""
