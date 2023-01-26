@@ -18,3 +18,6 @@ def is_tree(tree):
         if not is_tree(branch):
             return False
     return True
+
+def is_leaf(tree):
+    return not branches(tree)

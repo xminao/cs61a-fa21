@@ -11,7 +11,8 @@ def factors_list(n):
     """
     all_factors = []
     "*** YOUR CODE HERE ***"
-
+    all_factors = [x for x in range(1, n) if n % x == 0]
+    return all_factors
 
 def flatten(s):
     """Returns a flattened version of list s.
@@ -30,6 +31,13 @@ def flatten(s):
     [[1, [1, 1]], 1, [1, 1]]
     """
     "*** YOUR CODE HERE ***"
+    flatten_list = []
+    for x in s:
+        if type(x) != list:
+            flatten_list += [x]
+        else:
+            flatten_list += flatten(x)
+    return flatten_list
 
 
 from math import sqrt
@@ -47,6 +55,9 @@ def distance(city_a, city_b):
     5.0
     """
     "*** YOUR CODE HERE ***"
+    diff_lat = get_lat(city_a) - get_lat(city_b)
+    diff_lon = get_lon(city_a) - get_lon(city_b)
+    return sqrt(pow(diff_lat, 2) + pow(diff_lon, 2))
 
 
 def closer_city(lat, lon, city_a, city_b):
@@ -65,6 +76,10 @@ def closer_city(lat, lon, city_a, city_b):
     'Bucharest'
     """
     "*** YOUR CODE HERE ***"
+    city = make_city('closer', lat, lon)
+    with_a = distance(city, city_a)
+    with_b = distance(city, city_b)
+    return get_name(city_a) if with_a < with_b else get_name(city_b)
 
 
 def check_city_abstraction():
@@ -164,7 +179,8 @@ def berry_finder(t):
     True
     """
     "*** YOUR CODE HERE ***"
-
+    list = [x for x in branches(t)]
+    print(list)
 
 def sprout_leaves(t, leaves):
     """Sprout new leaves containing the data in leaves at each leaf in
