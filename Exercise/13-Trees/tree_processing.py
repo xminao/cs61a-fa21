@@ -25,3 +25,33 @@ def fib_tree(n):
     else:
         left, right = fib_tree(n-2), fib_tree(n-1)
         return tree(label(left)+label(right), [left, right])
+
+def is_leaf(tree):
+    return not branches(tree)
+
+def leaves(tree):
+    if is_leaf(tree):
+        return [label(tree)]
+    else:
+        return sum([leaves(b) for b in branches(tree)], [])
+
+def increment_leave(t):
+    if is_leaf(t):
+        return tree(label(t) + 1)
+    else:
+        bs = [increment_leave(b) for b in branches(t)]
+        return tree(label(t), bs)
+
+def increment(t):
+    return tree(label(t)+1, [increment(b) for b in branches(t)])
+
+def count_paths(t, total):
+    if label(t) == total:
+        found = 1
+    else:
+        found = 0
+    return found + sum([count_paths(b, total - label(t)) for b in branches(t)])
+
+t = tree(3, [tree(-1), tree(1, [tree(2, [tree(1)]), tree(3)]), tree(1, [tree(-1)])])
+
+print(count_paths(t, 3))
